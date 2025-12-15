@@ -1,0 +1,28 @@
+package FileHandling;
+import java.io.*;
+public class FileReading {
+    public static void main(String[] args) throws IOException{
+        int size;
+        FileInputStream fin;
+        fin=new FileInputStream("C:\\Users\\aadar\\OneDrive\\Documents\\Bonafide.jpg");
+        size=fin.available();
+        System.out.println("Total Bytes: "+size);
+        System.out.println("First 1/4 is displayed: Using read()");
+        for(int i=0;i<size/4;i++){
+            System.out.println((char)fin.read());
+        }
+        System.out.println("Remaining bytes: "+fin.available());
+        System.out.println("Next 1/4 is displayed:Using read(b[])");
+        byte b[]=new byte[size/4];
+        if(fin.read(b)!=b.length) System.out.println("File reading error");
+        else{
+            String temp=new String(b,0,0,b.length);
+            System.out.println(temp);
+            System.out.println("Still available: "+fin.available());
+            System.out.println("Skipping 1/4:Using skip()");
+            fin.skip(size/4);
+            System.out.println("File remaining for read: "+fin.available());
+        }
+        fin.close();
+    }
+}
